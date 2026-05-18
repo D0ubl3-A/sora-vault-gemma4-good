@@ -3,7 +3,7 @@
 ## Submission Links
 
 - Public demo video: https://youtu.be/M9n9oJnlWFc
-- Source package: included with this submission package under `source/`
+- Public code repository: https://github.com/D0ubl3-A/sora-vault-gemma4-good
 - Live demo: local proof flow is shown in the narrated video
 - Local app entrypoint: `C:\Users\aaron\.barz\apps\sora_vault_cloud`
 
