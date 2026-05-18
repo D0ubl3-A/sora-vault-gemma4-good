@@ -3,13 +3,19 @@
 ## Submission
 
 - Kaggle notebook: https://www.kaggle.com/code/illagency/sora-vault-gemma4-good
-- Demo video: https://youtu.be/o4gQOSWFYU8
+- Demo video: https://youtu.be/8uvVJT7DMls
 - YouTube playlist: https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy
 - GitHub repo: https://github.com/D0ubl3-A/sora-vault-gemma4-good
 
 ## One-Sentence Impact
 
 Sora Vault Cloud gives community impact teams cloud-style search over sensitive local media archives without forcing them to upload or surrender the whole archive first.
+
+## Prize-Track Positioning
+
+- Main Track: working product proof with UI, API, connector, notebook, generated MP4 playback, mastered audio replacement, and YouTube publishing.
+- Impact Track: privacy-sensitive local media support for education, journalism, legal aid, nonprofits, disaster response, accessibility, and small teams.
+- Special Technology Track: local Gemma/Ollama command layer, tool-style routing, frame intelligence, audio policy/mastering, edge/cloud trust boundary, and multimodal video/audio workflow.
 
 ## Why It Matters
 

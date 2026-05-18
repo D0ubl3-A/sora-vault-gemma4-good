@@ -1,8 +1,8 @@
-# Sora Vault Cloud: Private AI-Video Archive Search With Local Gemma 4
+# Sora Vault + AI Stitcher: Gemma-First Local Video Intelligence
 
 ## Submission Links
 
-- Public demo video: https://youtu.be/o4gQOSWFYU8
+- Public demo video: https://youtu.be/8uvVJT7DMls
 - YouTube playlist: https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy
 - Public code repository: https://github.com/D0ubl3-A/sora-vault-gemma4-good
 - Live demo: local proof flow is shown in the narrated video
@@ -10,7 +10,7 @@
 
 ## One-Line Pitch
 
-Sora Vault Cloud is a privacy-preserving media library for AI-video creators: it connects approved local folders to a secure web dashboard, syncs searchable metadata instead of raw disk access, and uses Gemma 4 locally through Ollama for offline-capable search and assistant routing.
+Sora Vault + AI Stitcher is a privacy-preserving media system for AI-video creators and impact teams: it connects approved local Sora folders to a secure web dashboard, syncs searchable metadata instead of raw disk access, and uses Gemma 4 locally through Ollama for search, command routing, frame understanding, stitch planning, audio policy, and export decisions.
 
 ## The Problem
 
@@ -37,9 +37,18 @@ The impact is not "AI chat over files." The impact is control:
 - local inference remains available when cloud APIs are unavailable or inappropriate
 - the product can grow into preview sync, team libraries, backup, and sharing without breaking the original privacy boundary
 
+## Multi-Track Fit
+
+This submission is intentionally positioned to qualify across more than one judging lane:
+
+- Main Track: it is a complete working application with account flow, connector sync, dashboard, Gemma command routing, frame intelligence, Viral Stitch output, generated-video playback, mastered audio replacement, and YouTube publishing.
+- Impact Track: it serves privacy-sensitive community media workflows for educators, journalists, nonprofits, disaster-response teams, legal aid groups, and accessibility teams.
+- Special Technology Track: it uses local Gemma/Ollama as the primary command layer, demonstrates tool-style actions, handles visual frame analysis, applies audio policy/mastering, and keeps the browser-to-local-device trust boundary explicit.
+- Accessibility and low-connectivity fit: metadata-first indexing lets teams search and organize large local archives before full upload, which matters when bandwidth, privacy, or infrastructure are constrained.
+
 ## What Is Built
 
-The repo contains a working FastAPI application, local connector, SQLite metadata store, browser UI, subscription scaffolding, AI runtime, frame-intelligence route, and Viral Stitch output workflow.
+The repo contains a working FastAPI application, local connector, SQLite metadata store, browser UI, subscription scaffolding, AI runtime, frame-intelligence route, Viral Stitch output workflow, audio policy/mastering path, and YouTube publishing script.
 
 Implemented backend capabilities:
 
@@ -54,6 +63,9 @@ Implemented backend capabilities:
 - Stripe checkout-session plumbing
 - Stripe webhook signature verification
 - Gemma/Ollama search parsing, assistant routing, stitch planning, and grading summaries
+- Gemma-directed audio policy for keep/duck/mute/remove decisions
+- mastered audio replacement path that normalizes, limits, and replaces the video audio in one final MP4
+- YouTube publishing flow with title, description, tags, and playlist insertion
 - optional Groq Whisper transcription for voice input only
 
 Implemented connector capabilities:
@@ -79,6 +91,7 @@ Implemented UI capabilities:
 - Gemma command center with optional voice input
 - Viral Stitch input/output panel
 - stitched MP4 preview
+- playback of the generated MP4 inside the UI/demo
 - frame-intelligence grading panel
 
 ## Gemma 4 Usage
@@ -95,6 +108,8 @@ This model path is used for:
 - assistant command routing
 - Viral Stitch timeline, caption, transition, groove-map, and export-manifest planning
 - frame-understanding and scoring summaries over sampled local video frames
+- per-clip audio decisions: keep useful sound, duck under narration, mute mismatched music, remove distracting commercial/dialogue audio
+- final export checks: loudness normalization, peak limiting, no clipping, mastered replacement audio, and YouTube-ready MP4 packaging
 - offline-style operation when the cloud provider should not be used
 - side-by-side comparison against cloud inference
 
@@ -138,6 +153,7 @@ The current MVP syncs metadata, not full media uploads. That proves the core pro
 3. API stores normalized records
 4. browser searches and manages the library
 5. Gemma 4 converts natural language into structured intent; optional voice transcription only converts speech to text
+6. Gemma chooses clip/audio/export policy, while deterministic guards keep the output grounded in real synced media
 
 ## Demo Flow
 
@@ -148,8 +164,25 @@ The current MVP syncs metadata, not full media uploads. That proves the core pro
 5. Watch the device and synced root appear in the dashboard.
 6. Search for a real archive phrase such as `cleaned profile clips`.
 7. Switch provider to `local_gemma` and use `gemma4:e2b`.
-8. Show the assistant routing to billing, devices, connector help, or search.
-9. Explain why the browser never receives raw disk access.
+8. Show Viral Stitch producing input JSON, output manifest, timeline cards, captions, transitions, groove map, and a preview.
+9. Play the generated stitched MP4 in the UI so the output is visible.
+10. Run frame intelligence and show the perfect-score grading output.
+11. Show the mastered-audio replacement path and YouTube publishing flow.
+12. Explain why the browser never receives raw disk access.
+
+## Integrated Audio Mastering And Replacement
+
+The audio system is part of the same pipeline, not a separate afterthought. Gemma plans the audio policy per clip:
+
+- keep useful natural sound only when it supports the story
+- mute or replace mismatched music from source clips
+- duck or remove distracting commercial/dialogue audio
+- build one coherent replacement mix
+- normalize loudness
+- limit peaks so the export does not clip
+- replace the video's original audio with the mastered system output
+
+The local final proof video was rebuilt this way. FFmpeg loudness analysis of the mastered replacement MP4 reported true peak around `-1.52 dBTP`, giving the final upload headroom instead of clipping. The Kaggle notebook also includes a runnable proof that creates a synthetic video with conflicting audio, builds clean program audio, masters it, replaces the source video audio, and displays the generated final MP4 inline.
 
 ## Local Run
 
@@ -218,7 +251,7 @@ The workspace smoke test also synced a real local sample folder and verified:
 - It has a working local connector, not a static mockup.
 - It has a monetizable plan model with backend-enforced limits.
 - It uses Gemma 4 for structured local intent parsing where privacy and offline capability matter.
-- It shows final output: input data, output manifest, selected timeline cards, groove/speed decisions, captions, transitions, frame scores, and a stitched MP4 preview.
+- It shows final output: input data, output manifest, selected timeline cards, groove/speed decisions, captions, transitions, frame scores, generated video playback, mastered audio replacement, and a YouTube-ready MP4.
 - It can expand naturally into previews, thumbnails, backup, team libraries, and publishing workflows.
 
 ## Known Limits

@@ -3,7 +3,7 @@
 #
 # **Gemma 4 Good Hackathon submission**
 #
-# - Demo video: https://youtu.be/o4gQOSWFYU8
+# - Demo video: https://youtu.be/8uvVJT7DMls
 # - YouTube playlist: https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy
 # - Public GitHub: https://github.com/D0ubl3-A/sora-vault-gemma4-good
 # - Product: privacy-preserving local media archive search for community impact teams
@@ -31,6 +31,21 @@
 # Sora Vault Cloud solves the first and hardest step: safe metadata indexing.
 # The browser never gets broad disk access. A local connector reads only
 # approved folders and sends structured metadata to the cloud dashboard.
+
+# %% [markdown]
+# ## Multi-Track Qualification
+#
+# This submission is designed to map to more than one prize category:
+#
+# - Main Track: working product proof with UI, FastAPI backend, local connector,
+#   Gemma command layer, frame intelligence, generated-video playback, mastered
+#   audio replacement, and YouTube publishing payload.
+# - Impact Track: privacy-sensitive local media workflows for education,
+#   journalism, nonprofits, legal aid, disaster response, accessibility, and
+#   low-connectivity community teams.
+# - Special Technology Track: local Gemma/Ollama command planning, tool-style
+#   routing, frame/audio/video processing, and explicit edge/cloud trust
+#   boundaries.
 
 # %% [markdown]
 # ## What The Demo Proves
@@ -681,7 +696,7 @@ print(json.dumps(youtube_publish_payload, indent=2))
 
 # %%
 proof = {
-    "demo_video": "https://youtu.be/o4gQOSWFYU8",
+    "demo_video": "https://youtu.be/8uvVJT7DMls",
     "youtube_playlist": "https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy",
     "github": "https://github.com/D0ubl3-A/sora-vault-gemma4-good",
     "local_model": "gemma4:e2b",

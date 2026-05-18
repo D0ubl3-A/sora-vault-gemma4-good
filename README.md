@@ -4,7 +4,7 @@ Sora Vault + AI Stitcher turns local Sora/video folders into a private searchabl
 
 ## Demo
 
-Narrated proof video: https://youtu.be/o4gQOSWFYU8
+Narrated proof video: https://youtu.be/8uvVJT7DMls
 
 YouTube playlist: https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy
 
@@ -19,6 +19,12 @@ The video shows:
 - frame intelligence sampling video frames, saving understanding, grading clips, and iterating to a target score
 - audio policy removing mismatched music/talking when needed, then normalizing, mastering, and replacing the video audio in one final MP4
 - inline playback of the final generated mastered MP4 in the notebook
+
+## Track Fit
+
+- Main Track: complete working app, notebook, public repo, demo video, and YouTube publishing flow.
+- Impact Track: privacy-first media workflows for educators, journalists, nonprofits, legal aid, disaster response, and accessibility teams.
+- Special Technology Track: local Gemma/Ollama command layer, frame intelligence, audio policy/mastering, generated-video playback, and edge/cloud trust boundary.
 
 ## Contents
 

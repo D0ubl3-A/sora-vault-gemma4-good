@@ -28,9 +28,10 @@ This corrected narrated proof shows the actual product working:
 - Final dashboard with synced device, root, and clip metadata
 - Gemma/Ollama command paths for search, assistant routing, stitch planning, frame summaries, grading, and export planning
 - Viral Stitch input data and output manifest
-- Timeline cards, captions, groove map, speed ramps, fades/dissolves, title system, and stitched MP4 preview
+- Timeline cards, captions, groove map, speed ramps, fades/dissolves, title system, and generated stitched MP4 playback
 - Frame intelligence that samples video frames, saves understanding, grades clips, and iterates to a perfect-score export plan
 - Gemma-directed audio policy that mutes mismatched music, ducks or removes distracting commercial/dialogue audio, prevents clipping, normalizes loudness, masters the final mix, and replaces the video audio with the mastered system output
+- YouTube publishing flow that uploads this final mastered MP4, applies metadata, and places it into a playlist
 
 Groq is used only as an optional voice input/transcription lane. The core intelligence path is Gemma 4 through Ollama, currently configured as gemma4:e2b.
 
