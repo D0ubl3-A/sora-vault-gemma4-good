@@ -68,15 +68,29 @@ class RootSyncRequest(BaseModel):
 class SearchRequest(BaseModel):
     query: str
     limit: int = Field(default=20, ge=1, le=100)
-    provider: AiProvider = "groq"
+    provider: AiProvider = "local_gemma"
     local_model: str | None = None
 
 
 class AssistantRequest(BaseModel):
     message: str
-    provider: AiProvider = "groq"
+    provider: AiProvider = "local_gemma"
     local_model: str | None = None
     state: dict = Field(default_factory=dict)
+
+
+class ViralStitchRequest(BaseModel):
+    brief: str = Field(min_length=8, max_length=1200)
+    transcript: str = Field(default="", max_length=4000)
+    provider: AiProvider = "local_gemma"
+    local_model: str | None = None
+    clip_count: int = Field(default=6, ge=2, le=12)
+
+
+class FrameIntelligenceRequest(BaseModel):
+    max_clips: int = Field(default=6, ge=1, le=20)
+    frames_per_clip: int = Field(default=3, ge=1, le=8)
+    target_score: int = Field(default=100, ge=70, le=100)
 
 
 class BillingCheckoutRequest(BaseModel):

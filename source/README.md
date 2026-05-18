@@ -1,18 +1,20 @@
-# Sora Vault Cloud
+# Sora Vault + AI Stitcher
 
-> Groq-first subscription software for turning giant local AI-video archives into a secure online library without giving a browser raw access to a user's machine.
+> Gemma-first software for turning giant local Sora/video archives into a secure searchable library, scored frame understanding, and export-ready stitched videos without giving a browser raw access to a user's machine.
 
 ## Hackathon Summary
 
 **What we built**
 
-Sora Vault Cloud is a hybrid **cloud app + local connector** that lets creators:
+Sora Vault + AI Stitcher is a hybrid **cloud app + local connector + stitch planner** that lets creators:
 
 1. create an account online
 2. pick a subscription tier
 3. connect approved local folders from their own machine
 4. sync clip metadata into a searchable web dashboard
-5. search and operate the archive through a Groq-first assistant
+5. search and operate the archive through Gemma/Ollama commands
+6. generate Viral Stitch output with input/output manifests, groove maps, speed ramps, transitions, captions, and a stitched MP4 preview
+7. sample frames, save frame understanding, and grade clips toward an export score
 
 **Why it matters**
 
@@ -21,10 +23,10 @@ The web cannot safely crawl arbitrary local disks. Most "cloud drive for local A
 - the **browser** handles identity, billing, search, and UX
 - the **connector** handles filesystem access on the user's machine
 - the **API** is the trust boundary between the two
-- **Groq** is the primary cloud inference layer
-- **Local Gemma 4** remains available as an optional fallback
+- **Local Gemma 4 through Ollama** is the primary command and planning layer
+- **Groq transcription** is optional voice input only
 
-This turns a folder of offline clips into a product that can actually be sold as a subscription.
+This turns a folder of offline clips into a product that can actually be sold as a subscription and expanded into a serious AI video operating system.
 
 ---
 
@@ -81,9 +83,10 @@ This is the exact story the project is designed to tell in a live demo:
 4. Copy the connector command from the UI.
 5. Run the connector against a real local folder.
 6. Watch the device and root appear in the web dashboard.
-7. Use Groq-first search to find cleaned clips, remixes, or profile outputs.
-8. Use the built-in voice assistant to jump to billing, devices, or connector help.
-9. Explain how this scales from metadata sync to previews, sharing, and backup.
+7. Use Gemma/Ollama search to find cleaned clips, remixes, or profile outputs.
+8. Use the command center to jump to billing, devices, connector help, search, frame scoring, or stitch planning.
+9. Generate Viral Stitch output: input data, output manifest, groove map, timeline, captions, and MP4 preview.
+10. Explain how this scales from metadata sync to previews, sharing, backup, NLE integration, and enterprise permissions.
 
 This gives judges a full stack story:
 
@@ -107,7 +110,7 @@ This gives judges a full stack story:
 - Local creator archives are exploding in size.
 - AI video tools change quickly, but local outputs remain durable assets.
 - Users want cloud convenience without surrendering local control.
-- Groq makes low-latency cloud reasoning practical for assistant and routing tasks.
+- Gemma/Ollama makes private, local command planning practical for sensitive archives.
 
 ### Who it is for
 
@@ -131,10 +134,11 @@ This repo is not mock UI. It contains working code for:
 - connector sync
 - root-level sync tracking
 - plan-aware device and folder limits
-- Groq-first query parsing
-- Groq-first assistant routing
-- Groq Whisper transcription for the web assistant
-- local Gemma 4 fallback support through Ollama
+- Gemma/Ollama query parsing
+- Gemma/Ollama assistant command routing
+- optional Groq transcription for voice input only
+- Viral Stitch planner route
+- frame-intelligence and grading route
 - Stripe checkout-session plumbing
 - Stripe webhook signature verification
 - browser dashboard
@@ -168,10 +172,10 @@ flowchart LR
     U["User in Browser"] --> W["Web App UI"]
     W --> A["FastAPI Cloud API"]
     A --> DB["SQLite Metadata Store"]
-    W --> G["Groq APIs"]
+    A --> O["Local Gemma 4 via Ollama"]
     C["Local Connector"] --> A
     C --> FS["Approved Local Folders"]
-    A -. optional fallback .-> O["Local Gemma 4 via Ollama"]
+    A -. optional voice input .-> G["Groq transcription"]
 ```
 
 ### Components
@@ -185,7 +189,7 @@ The cloud control plane:
 - device registration
 - sync ingestion
 - billing entrypoints
-- Groq-backed search and assistant routes
+- Gemma-backed search, assistant, stitch, and grading routes
 - static app serving
 
 #### `connector.py`
@@ -213,10 +217,10 @@ The metadata layer:
 
 The AI routing layer:
 
-- Groq-first search parsing
-- Groq-first assistant command routing
-- Groq Whisper transcription
-- local Gemma 4 fallback path
+- Gemma/Ollama search parsing
+- Gemma/Ollama assistant command routing
+- Gemma/Ollama stitch and grading command contracts
+- optional Groq Whisper transcription for voice input
 
 #### `web/`
 
@@ -282,7 +286,7 @@ The repo includes three plan shapes:
 - 1 device
 - 3 synced roots
 - metadata sync
-- Groq search and assistant
+- Gemma search and stitch planner
 
 ### Pro
 
@@ -290,7 +294,7 @@ The repo includes three plan shapes:
 - 5 devices
 - 20 synced roots
 - multi-folder workflows
-- Groq voice assistant
+- Gemma planner with optional voice input
 
 ### Vault
 
@@ -313,32 +317,25 @@ That is the difference between a demo page and a monetizable backend.
 
 ## AI Strategy
 
-### Primary provider: Groq
+### Primary provider: Local Gemma 4
 
-Groq is first choice for:
+Local Gemma 4 runs through Ollama for:
 
 - query parsing
-- assistant routing
-- speech-to-text
+- assistant command routing
+- Viral Stitch planning
+- frame-grading summaries
+- privacy-sensitive/offline operation
 
-Default models in this scaffold:
+### Optional voice input: Groq transcription
 
-- assistant routing: `llama-3.1-8b-instant`
-- search parsing: `openai/gpt-oss-20b`
-- transcription: `whisper-large-v3-turbo`
-
-### Optional provider: Local Gemma 4
-
-Local Gemma 4 remains available through Ollama for:
-
-- offline-style search parsing
-- side-by-side provider comparison
-- users who want a local fallback path
+Groq is kept as a narrow microphone-to-text path. Voice audio can be transcribed, then the resulting text is handed to Gemma/Ollama for command planning. It is not the core search or assistant brain in this submission.
 
 This makes the product flexible:
 
-- cloud-first UX
-- local-first escape hatch
+- local-first privacy
+- explicit provider boundaries
+- voice convenience without changing the model story
 
 Default local model:
 
@@ -471,8 +468,10 @@ The UI is designed as a real product surface, not a generated admin skeleton.
 - dashboard metrics
 - device list
 - synced roots
-- Groq-first search
-- voice assistant
+- Gemma-powered search
+- Gemma command center with optional voice input
+- Viral Stitch output panel
+- frame-intelligence grading panel
 - connector onboarding
 
 ### Interaction choices
@@ -534,7 +533,9 @@ Copy-Item C:\Users\aaron\.barz\apps\sora_vault_cloud\.env.example C:\Users\aaron
 
 Then fill in:
 
-- `GROQ_API_KEY`
+- `SORA_VAULT_AI_PROVIDER_DEFAULT=local_gemma`
+- `SORA_VAULT_OLLAMA_MODEL=gemma4:e2b`
+- `GROQ_API_KEY` only if you want optional microphone transcription
 - `STRIPE_SECRET_KEY` and plan price IDs when you want billing live on your deployment
 
 ### Stripe ownership rule
@@ -598,12 +599,10 @@ Try searches like:
 - `SORA_VAULT_DB_PATH`
 - `SORA_VAULT_SESSION_TTL_HOURS`
 
-### Groq
+### Optional Groq voice input
 
 - `GROQ_API_KEY`
 - `GROQ_WHISPER_MODEL`
-- `SORA_VAULT_GROQ_ASSISTANT_MODEL`
-- `SORA_VAULT_GROQ_SEARCH_MODEL`
 
 ### Local Gemma 4
 
@@ -627,7 +626,7 @@ Try searches like:
 - `api.py` - FastAPI server and product API
 - `config.py` - plan definitions and environment settings
 - `connector.py` - local scan and sync client
-- `groq_runtime.py` - Groq-first AI runtime plus local fallback
+- `groq_runtime.py` - Gemma/Ollama AI runtime plus optional Groq voice transcription
 - `security.py` - hashing, token helpers, webhook verification
 - `shared_models.py` - Pydantic request models
 - `storage.py` - SQLite schema and queries
@@ -651,6 +650,9 @@ This is a strong MVP, not the final platform.
 - background job queue
 - resumable large sync jobs
 - vector embeddings for semantic recall
+- professional NLE export/import such as Premiere XML, DaVinci Resolve, EDL, and FCPXML
+- advanced color grading, multi-track audio mixing, object detection, and shot-boundary detection
+- enterprise SSO, RBAC, audit logs, tenant isolation, and cloud preview storage optimization
 - signed-download and remote-open callbacks
 - production Stripe subscription lifecycle hardening beyond base webhook handling
 
@@ -662,6 +664,8 @@ Even before previews and full uploads, the product already proves:
 - local-to-cloud sync
 - secure device connection
 - AI-assisted archive search
+- Viral Stitch output generation
+- frame understanding and grading
 - monetizable plan structure
 
 ---
@@ -674,6 +678,7 @@ Even before previews and full uploads, the product already proves:
 - upload thumbnails and short proxies
 - add root-specific filters in UI
 - add device revoke and token rotation
+- add cached frame summaries and queued batch processing
 
 ### Mid term
 
@@ -681,6 +686,8 @@ Even before previews and full uploads, the product already proves:
 - clip collections
 - assistant-driven saved searches
 - automation rules for archive organization
+- team roles, RBAC, and audit logs
+- proxy storage and cloud preview optimization
 
 ### Longer term
 
@@ -688,6 +695,8 @@ Even before previews and full uploads, the product already proves:
 - remote preview streaming
 - publish pipeline integrations
 - multi-provider archive ingestion beyond Sora-style exports
+- NLE integrations for Premiere, Resolve, and interchange formats
+- automated color, object, and multi-track audio intelligence
 
 ---
 
@@ -697,7 +706,7 @@ If this is presented live, the strongest takeaways are:
 
 - "We solved the local-folder problem the right way."
 - "This is subscription software, not just a utility script."
-- "The AI is useful because it routes and explains, not because it decorates."
+- "Gemma is useful because it routes, plans, scores, and grounds output in real synced media."
 - "The architecture can expand from metadata sync to full creator cloud."
 
 ---
@@ -709,7 +718,8 @@ Sora Vault Cloud turns a dead-end archive problem into a credible product:
 - online accounts
 - subscription logic
 - safe local-folder connection
-- Groq-first search and voice workflows
+- Gemma-first search, stitch, and grading workflows
+- optional voice input
 - a clear bridge from local assets to cloud value
 
 That combination is what makes the project feel hackathon-ready and product-ready at the same time.

@@ -30,12 +30,12 @@ PLAN_CATALOG: dict[str, PlanDefinition] = {
     "starter": PlanDefinition(
         plan_id="starter",
         name="Starter",
-        description="Metadata sync for one machine with Groq-powered search and assistant.",
+        description="Metadata sync for one machine with Gemma-powered search and stitch planning.",
         monthly_price_label="$19/mo",
         features=(
             "1 device",
             "metadata sync",
-            "Groq search and assistant",
+            "Gemma 4 search and stitch planner",
             "basic library dashboard",
         ),
         device_limit=1,
@@ -45,12 +45,12 @@ PLAN_CATALOG: dict[str, PlanDefinition] = {
     "pro": PlanDefinition(
         plan_id="pro",
         name="Pro",
-        description="Multiple devices, preview metadata, and faster team-ready Groq workflows.",
+        description="Multiple devices, preview metadata, and team-ready Gemma workflows.",
         monthly_price_label="$49/mo",
         features=(
             "5 devices",
             "multi-folder sync",
-            "Groq voice assistant",
+            "Gemma planner with optional voice input",
             "priority search and tagging",
         ),
         device_limit=5,
@@ -81,7 +81,7 @@ class Settings:
     groq_assistant_model = os.getenv("SORA_VAULT_GROQ_ASSISTANT_MODEL", "llama-3.1-8b-instant")
     groq_search_model = os.getenv("SORA_VAULT_GROQ_SEARCH_MODEL", "openai/gpt-oss-20b")
     groq_transcription_model = os.getenv("GROQ_WHISPER_MODEL", "whisper-large-v3-turbo")
-    ai_provider_default = os.getenv("SORA_VAULT_AI_PROVIDER_DEFAULT", "groq")
+    ai_provider_default = os.getenv("SORA_VAULT_AI_PROVIDER_DEFAULT", "local_gemma")
     local_ollama_api = os.getenv("SORA_VAULT_OLLAMA_API", "http://127.0.0.1:11434/api/generate")
     local_ollama_model = os.getenv("SORA_VAULT_OLLAMA_MODEL", "gemma4:e2b")
     app_public_url = os.getenv("SORA_VAULT_PUBLIC_URL", f"http://{DEFAULT_HOST}:{DEFAULT_PORT}")

@@ -2,7 +2,8 @@
 
 ## Submission Links
 
-- Public demo video: https://youtu.be/M9n9oJnlWFc
+- Public demo video: https://youtu.be/o4gQOSWFYU8
+- YouTube playlist: https://www.youtube.com/playlist?list=PLO0_Bzcc_TnqmS-_ml_4Nm4ICSzroB6iy
 - Public code repository: https://github.com/D0ubl3-A/sora-vault-gemma4-good
 - Live demo: local proof flow is shown in the narrated video
 - Local app entrypoint: `C:\Users\aaron\.barz\apps\sora_vault_cloud`
@@ -38,7 +39,7 @@ The impact is not "AI chat over files." The impact is control:
 
 ## What Is Built
 
-The repo contains a working FastAPI application, local connector, SQLite metadata store, browser UI, subscription scaffolding, AI runtime, and voice/search workflows.
+The repo contains a working FastAPI application, local connector, SQLite metadata store, browser UI, subscription scaffolding, AI runtime, frame-intelligence route, and Viral Stitch output workflow.
 
 Implemented backend capabilities:
 
@@ -52,8 +53,8 @@ Implemented backend capabilities:
 - plan-aware device and folder limits
 - Stripe checkout-session plumbing
 - Stripe webhook signature verification
-- Groq-powered search parsing, assistant routing, and Whisper transcription
-- local Gemma 4 provider path through Ollama
+- Gemma/Ollama search parsing, assistant routing, stitch planning, and grading summaries
+- optional Groq Whisper transcription for voice input only
 
 Implemented connector capabilities:
 
@@ -61,6 +62,7 @@ Implemented connector capabilities:
 - registers a named local device
 - scans only folders passed on the command line
 - discovers video files
+- supports massive approved Sora folders through metadata-first indexing
 - extracts filename, relative path, category, character, file size, modified time, dimensions, FPS, frame count, duration, aspect ratio, cleaned/no-watermark hints, and search text
 - syncs clip records in chunks
 
@@ -74,7 +76,10 @@ Implemented UI capabilities:
 - natural-language library search
 - provider selector
 - local model override
-- voice assistant controls
+- Gemma command center with optional voice input
+- Viral Stitch input/output panel
+- stitched MP4 preview
+- frame-intelligence grading panel
 
 ## Gemma 4 Usage
 
@@ -88,6 +93,8 @@ This model path is used for:
 
 - search-query parsing into structured filters
 - assistant command routing
+- Viral Stitch timeline, caption, transition, groove-map, and export-manifest planning
+- frame-understanding and scoring summaries over sampled local video frames
 - offline-style operation when the cloud provider should not be used
 - side-by-side comparison against cloud inference
 
@@ -114,8 +121,8 @@ flowchart LR
     API --> DB["SQLite metadata store"]
     Connector["Local connector"] --> API
     Connector --> Folders["User-approved local folders"]
-    API --> Groq["Groq cloud provider"]
-    API -. offline/private path .-> Gemma["Local Gemma 4 via Ollama"]
+    API --> Gemma["Local Gemma 4 via Ollama"]
+    API -. optional voice input .-> Groq["Groq transcription"]
 ```
 
 ### Trust Boundary
@@ -130,7 +137,7 @@ The current MVP syncs metadata, not full media uploads. That proves the core pro
 2. connector extracts metadata
 3. API stores normalized records
 4. browser searches and manages the library
-5. Gemma 4 or Groq converts natural language into structured intent
+5. Gemma 4 converts natural language into structured intent; optional voice transcription only converts speech to text
 
 ## Demo Flow
 
@@ -211,6 +218,7 @@ The workspace smoke test also synced a real local sample folder and verified:
 - It has a working local connector, not a static mockup.
 - It has a monetizable plan model with backend-enforced limits.
 - It uses Gemma 4 for structured local intent parsing where privacy and offline capability matter.
+- It shows final output: input data, output manifest, selected timeline cards, groove/speed decisions, captions, transitions, frame scores, and a stitched MP4 preview.
 - It can expand naturally into previews, thumbnails, backup, team libraries, and publishing workflows.
 
 ## Known Limits
@@ -224,6 +232,9 @@ Current limits:
 - team roles are future work
 - background jobs and resumable sync are future work
 - vector embeddings are future work
+- professional video formats, sidecars, and NLE integrations are future work
+- automated color grading, object detection, and multi-track audio mixing are future work
+- enterprise SSO, RBAC, audit logs, tenant isolation, and cloud preview storage optimization are future work
 - remote open/download callbacks are future work
 - Stripe subscription lifecycle handling needs production hardening beyond the base webhook path
 
@@ -238,6 +249,8 @@ Near term:
 - add device revoke and token rotation
 - add root-level search filters
 - add saved searches
+- cache frame summaries for large archives
+- queue long batch-processing jobs
 
 Mid term:
 
@@ -246,6 +259,9 @@ Mid term:
 - assistant-generated organization rules
 - full backup tier
 - publish/export integrations
+- team permissions and audit logs
+- NLE export/import via Premiere XML, Resolve, EDL, and FCPXML
+- proxy generation and cloud preview storage optimization
 
 Longer term:
 
@@ -253,6 +269,7 @@ Longer term:
 - local summarization of long clip batches
 - privacy-preserving duplicate detection
 - low-connectivity creator/team deployments
+- automated color, object, and multi-track audio intelligence
 
 ## Judging Summary
 

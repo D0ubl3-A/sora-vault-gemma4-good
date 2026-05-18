@@ -34,6 +34,16 @@ const el = {
   recordButton: document.getElementById("record-button"),
   stopButton: document.getElementById("stop-button"),
   connectorCommand: document.getElementById("connector-command"),
+  stitchForm: document.getElementById("stitch-form"),
+  stitchBrief: document.getElementById("stitch-brief"),
+  stitchTranscript: document.getElementById("stitch-transcript"),
+  stitchInput: document.getElementById("stitch-input"),
+  stitchOutput: document.getElementById("stitch-output"),
+  stitchTimeline: document.getElementById("stitch-timeline"),
+  stitchPreview: document.getElementById("stitch-preview"),
+  frameRunButton: document.getElementById("frame-run-button"),
+  frameOutput: document.getElementById("frame-output"),
+  gradeOutput: document.getElementById("grade-output"),
 };
 
 function escapeHtml(value) {
@@ -172,11 +182,11 @@ function renderDashboard() {
 function renderConnectorCommand() {
   const email = state.user?.email || "you@example.com";
   el.connectorCommand.textContent =
-    `$env:ILL_MOTION_PASSWORD = "YOUR_PASSWORD"\n` +
+    `$env:SORA_VAULT_PASSWORD = "YOUR_PASSWORD"\n` +
     `py -3 connector.py ` +
     `--api-url ${window.location.origin} ` +
     `--email "${email}" ` +
-    `--password-env ILL_MOTION_PASSWORD ` +
+    `--password-env SORA_VAULT_PASSWORD ` +
     `--device-name "My Desktop" ` +
     `--folders "D:\\AI-Archive" "D:\\Generated-Video"`;
 }
@@ -222,7 +232,7 @@ async function handleAuth(path, form) {
 }
 
 async function searchLibrary(query) {
-  const provider = el.providerSelect.value || "groq";
+  const provider = el.providerSelect.value || "local_gemma";
   const payload = await api("/api/library/search", {
     method: "POST",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
@@ -234,6 +244,7 @@ async function searchLibrary(query) {
     }),
   });
   el.searchIntent.innerHTML = [
+    payload.provider_warning || "",
     ...(payload.intent.keywords || []),
     ...(payload.intent.categories || []),
     ...(payload.intent.characters || []),
@@ -260,7 +271,7 @@ async function searchLibrary(query) {
 }
 
 async function askAssistant(message) {
-  const provider = el.providerSelect.value || "groq";
+  const provider = el.providerSelect.value || "local_gemma";
   addAssistant("You", message);
   el.assistantStatus.textContent = "Thinking...";
   const payload = await api("/api/assistant", {
@@ -276,7 +287,10 @@ async function askAssistant(message) {
       },
     }),
   });
-  addAssistant("Atlas", payload.reply);
+  addAssistant("Gemma", payload.reply);
+  if (payload.provider_warning) {
+    addAssistant("System", payload.provider_warning);
+  }
   speak(payload.reply);
   el.assistantStatus.textContent = "Mic idle";
   if (payload.command === "search_library" && payload.args?.query) {
@@ -289,6 +303,61 @@ async function askAssistant(message) {
   } else if (payload.command === "show_connector_help") {
     window.scrollTo({ top: document.querySelector(".connector").offsetTop - 20, behavior: "smooth" });
   }
+}
+
+async function generateStitchOutput() {
+  const provider = el.providerSelect.value || "local_gemma";
+  const body = {
+    brief: el.stitchBrief.value.trim(),
+    transcript: el.stitchTranscript.value.trim(),
+    provider,
+    local_model: el.localModel.value.trim() || "gemma4:e2b",
+    clip_count: 6,
+  };
+  el.stitchInput.textContent = JSON.stringify(body, null, 2);
+  el.stitchOutput.textContent = "Generating output from synced clip metadata...";
+  el.stitchTimeline.innerHTML = "";
+  el.stitchPreview.removeAttribute("src");
+  el.stitchPreview.style.display = "none";
+  const payload = await api("/api/viral-stitch", {
+    method: "POST",
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  el.stitchOutput.textContent = JSON.stringify(payload.output, null, 2);
+  el.stitchTimeline.innerHTML = (payload.output.timeline || [])
+    .map(
+      (item) => `
+        <article class="timeline-card">
+          <span>${escapeHtml(`${item.start_sec}s-${item.end_sec}s`)}</span>
+          <strong>${escapeHtml(item.beat)}</strong>
+          <p>${escapeHtml(item.caption)}</p>
+          <div class="result__meta">
+            <span>${escapeHtml(item.title_text)}</span>
+            <span>${escapeHtml(item.transition)}</span>
+            <span>${escapeHtml(item.relative_path)}</span>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+  if (payload.output.export_manifest?.preview_url) {
+    el.stitchPreview.src = payload.output.export_manifest.preview_url;
+    el.stitchPreview.style.display = "block";
+    await el.stitchPreview.play().catch(() => {});
+  }
+}
+
+async function runFrameIntelligence() {
+  el.frameOutput.textContent = "Sampling video frames and saving clip understanding...";
+  el.gradeOutput.textContent = "Building grading passes...";
+  const payload = await api("/api/frame-intelligence", {
+    method: "POST",
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify({ max_clips: 8, frames_per_clip: 4, target_score: 100 }),
+  });
+  el.frameOutput.textContent = JSON.stringify(payload.saved_understanding, null, 2);
+  el.gradeOutput.textContent = JSON.stringify(payload.grading_system, null, 2);
 }
 
 function blobToBase64(blob) {
@@ -426,6 +495,31 @@ el.assistantForm.addEventListener("submit", async (event) => {
   }
 });
 
+el.stitchForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!state.token) {
+    el.authMessage.textContent = "Sign in before generating a stitch output.";
+    return;
+  }
+  try {
+    await generateStitchOutput();
+  } catch (error) {
+    el.stitchOutput.textContent = error.message;
+  }
+});
+
+el.frameRunButton.addEventListener("click", async () => {
+  if (!state.token) {
+    el.authMessage.textContent = "Sign in before running frame intelligence.";
+    return;
+  }
+  try {
+    await runFrameIntelligence();
+  } catch (error) {
+    el.gradeOutput.textContent = error.message;
+  }
+});
+
 el.recordButton.addEventListener("click", async () => {
   try {
     await startRecording();
@@ -448,7 +542,7 @@ async function init() {
     }
   }
   renderConnectorCommand();
-  addAssistant("Atlas", "Ready to onboard devices, search the library, and start subscriptions.");
+  addAssistant("Gemma", "Ready to onboard devices, search the library, grade frames, and plan a stitched export.");
 }
 
 init().catch((error) => {

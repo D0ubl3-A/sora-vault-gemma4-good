@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>iLL Motion</title>
+    <title>Sora Vault AI Stitcher</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
         <div class="masthead__brand">
           <span class="brand-mark"></span>
           <div>
-            <p class="eyebrow">iLL Motion</p>
-            <p class="brand-note">Private AI media cloud</p>
+            <p class="eyebrow">Sora Vault</p>
+            <p class="brand-note">AI Stitcher</p>
           </div>
         </div>
         <nav class="masthead__nav">
@@ -30,12 +30,12 @@
 
       <header class="hero">
         <div class="hero__copy">
-          <p class="eyebrow">Bring any local AI video archive online</p>
-          <h1>Plug old generation folders into a searchable private library.</h1>
+          <p class="eyebrow">Sora Vault + AI Stitcher</p>
+          <h1>Turn local Sora archives into searchable, scored, export-ready videos.</h1>
           <p class="lede">
-            iLL Motion turns local video exports, remix folders, cleaned outputs, and legacy model archives
+            Sora Vault indexes local Sora exports, remix folders, cleaned outputs, and legacy model archives
             into a secure web dashboard. The connector reads only approved folders, syncs metadata,
-            and lets Groq help you find clips fast without exposing your whole disk to the browser.
+            and lets Gemma 4 through Ollama power search, stitch planning, frame scoring, captions, and export decisions.
           </p>
           <div class="hero__actions">
             <a class="button-link" href="#auth">Create your library</a>
@@ -44,7 +44,7 @@
           <div class="hero__proof">
             <span>Local folders stay local</span>
             <span>Metadata sync only</span>
-            <span>Groq-first search + voice</span>
+            <span>Gemma/Ollama intelligence</span>
           </div>
         </div>
 
@@ -70,14 +70,14 @@
                 <span>accounts, plans, synced roots, device status</span>
               </div>
               <div class="signal-node signal-node--accent">
-                <strong>Groq assistant</strong>
-                <span>search, routing, voice transcription</span>
+                <strong>Gemma stitch brain</strong>
+                <span>search, routing, frame scoring, export planning</span>
               </div>
             </div>
           </div>
           <div class="hero__status">
             <span id="session-status" class="pill">Signed out</span>
-            <span id="provider-status" class="pill pill--muted">Groq first</span>
+            <span id="provider-status" class="pill pill--muted">Gemma first</span>
           </div>
           <div class="hero__metrics" id="hero-metrics"></div>
         </div>
@@ -92,7 +92,7 @@
           <p class="story-strip__copy">
             The app does not try to mount your disk in the browser. It uses a local connector to read
             approved folders, pushes clip metadata into the cloud API, and gives you a subscription-ready
-            search and assistant experience on top.
+            search, frame intelligence, and stitch-planning experience on top.
           </p>
         </section>
 
@@ -115,7 +115,7 @@
             <article>
               <span>03</span>
               <h3>Search from anywhere</h3>
-              <p>Your cloud dashboard can browse, filter, and ask Groq to find clips fast without exposing raw local disk access.</p>
+              <p>Your dashboard can browse, filter, and ask Gemma/Ollama to find clips fast without exposing raw local disk access.</p>
             </article>
           </div>
         </section>
@@ -255,6 +255,26 @@
           </div>
         </section>
 
+        <section class="panel panel--wide" id="scale-mode">
+          <div class="panel__head panel__head--split">
+            <div>
+              <p class="eyebrow">Large Sora vault mode</p>
+              <h2>Built for thousands of local Sora clips, not just a toy folder.</h2>
+            </div>
+            <p class="meta-text">
+              The connector indexes approved roots first, then Gemma ranks metadata, samples frames in batches,
+              applies audio mute/duck/mastering policy, and promotes only the strongest clips into the final stitch.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pill pill--muted">Mass folder scan</span>
+            <span class="pill pill--muted">Batch frame sampling</span>
+            <span class="pill pill--muted">Hero clip ranking</span>
+            <span class="pill pill--muted">Mastered final MP4</span>
+            <span class="pill pill--muted">YouTube publish flow</span>
+          </div>
+        </section>
+
         <section class="search panel">
           <div class="panel__head">
             <p class="eyebrow">Search</p>
@@ -272,19 +292,79 @@
 
         <section class="assistant panel">
           <div class="panel__head">
-            <p class="eyebrow">Voice assistant</p>
-            <h2>Ask the library what is connected, searchable, or missing.</h2>
+          <p class="eyebrow">Gemma command center</p>
+          <h2>Ask the library what is connected, searchable, stitchable, or missing.</h2>
           </div>
           <div id="assistant-log" class="assistant-log"></div>
           <form id="assistant-form" class="assistant__form">
-            <input id="assistant-message" type="text" placeholder="Show devices, search cleaned profile clips, how do I connect my desktop?" required>
+              <input id="assistant-message" type="text" placeholder="Show devices, search cleaned clips, grade frames, plan a viral stitch..." required>
             <div class="assistant__actions">
               <button type="submit">Send</button>
-              <button type="button" id="record-button">Record</button>
+              <button type="button" id="record-button">Voice input</button>
               <button type="button" id="stop-button" disabled>Stop</button>
             </div>
           </form>
           <p id="assistant-status" class="meta-text">Mic idle</p>
+        </section>
+
+        <section class="viral-stitch panel panel--wide" id="viral-stitch">
+          <div class="panel__head panel__head--split">
+            <div>
+              <p class="eyebrow">Viral stitch output</p>
+              <h2>Turn synced clips into an export-ready impact cut.</h2>
+            </div>
+            <p class="meta-text">
+              Gemma/Ollama command planning takes a brief and transcript, selects synced clips, and returns the hook,
+              timeline, captions, groove map, speed ramps, transitions, audio mute/duck decisions, mastering policy, and export manifest.
+            </p>
+          </div>
+          <form id="stitch-form" class="stitch-form">
+            <label>
+              Brief
+              <textarea id="stitch-brief" rows="4" required>Build a civic evidence vault promo that proves local sensitive media can be searched without uploading the whole archive first.</textarea>
+            </label>
+            <label>
+              Transcript or voiceover
+              <textarea id="stitch-transcript" rows="4">What if local footage from educators, nonprofits, journalists, and response teams could become searchable while staying under local control?</textarea>
+            </label>
+            <button type="submit">Generate stitch output</button>
+          </form>
+          <div class="io-grid">
+            <div>
+              <h3>Input data</h3>
+              <pre id="stitch-input"></pre>
+            </div>
+            <div>
+              <h3>Output manifest</h3>
+              <pre id="stitch-output"></pre>
+            </div>
+          </div>
+          <div id="stitch-timeline" class="timeline-output"></div>
+          <video id="stitch-preview" class="stitch-preview" controls muted playsinline></video>
+        </section>
+
+        <section class="frame-intel panel panel--wide" id="frame-intelligence">
+          <div class="panel__head panel__head--split">
+            <div>
+              <p class="eyebrow">Frame intelligence</p>
+              <h2>Grade massive clip archives down to the frames that can win attention.</h2>
+            </div>
+            <p class="meta-text">
+              The analyzer samples frames, saves per-frame understanding, scores clip quality,
+              and iterates the stitch toward a perfect export score.
+            </p>
+          </div>
+          <button type="button" id="frame-run-button">Analyze frames and perfect score</button>
+          <div class="io-grid">
+            <div>
+              <h3>Frame understanding</h3>
+              <pre id="frame-output"></pre>
+            </div>
+            <div>
+              <h3>Grading system</h3>
+              <pre id="grade-output"></pre>
+            </div>
+          </div>
         </section>
 
         <section class="connector panel panel--wide">

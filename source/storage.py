@@ -451,6 +451,22 @@ class Storage:
         ranked.sort(key=lambda row: (-row["score"], row["category"].lower(), row["title_text"].lower()))
         return ranked[:limit]
 
+    def list_clip_files(self, user_id: str, limit: int) -> list[dict]:
+        with self.connect() as connection:
+            rows = connection.execute(
+                """
+                SELECT clips.id, clips.title_text, clips.category, clips.relative_path, clips.duration_sec,
+                       clips.looks_cleaned, clips.width, clips.height, clips.fps, library_roots.folder_path
+                FROM clips
+                JOIN library_roots ON library_roots.id = clips.root_id
+                WHERE clips.user_id = ?
+                ORDER BY clips.looks_cleaned DESC, clips.modified_at DESC
+                LIMIT ?
+                """,
+                (user_id, limit),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
     def set_subscription(
         self,
         user_id: str,

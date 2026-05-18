@@ -22,10 +22,9 @@ class AiRuntime:
         self.groq_client = Groq(api_key=settings.groq_api_key) if Groq and settings.groq_api_key else None
 
     def available_providers(self) -> list[dict[str, str]]:
-        providers = []
+        providers = [{"id": "local_gemma", "label": "Local Gemma", "default_model": settings.local_ollama_model}]
         if settings.groq_api_key:
-            providers.append({"id": "groq", "label": "Groq", "default_model": settings.groq_assistant_model})
-        providers.append({"id": "local_gemma", "label": "Local Gemma", "default_model": settings.local_ollama_model})
+            providers.append({"id": "groq", "label": "Groq voice/input fallback", "default_model": settings.groq_transcription_model})
         return providers
 
     def parse_search_query(

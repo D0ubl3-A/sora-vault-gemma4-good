@@ -1,0 +1,13 @@
+{
+  "id": "illagency/sora-vault-gemma4-good",
+  "title": "Sora Vault Gemma4 Good",
+  "code_file": "sora_vault_gemma4_good.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": ["gemma-4-good-hackathon"],
+  "kernel_sources": []
+}

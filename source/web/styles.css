@@ -660,6 +660,61 @@ pre {
   color: #d6e3ef;
 }
 
+.stitch-form {
+  display: grid;
+  gap: 14px;
+}
+
+.stitch-form label {
+  display: grid;
+  gap: 8px;
+  color: #d6e3ef;
+}
+
+.stitch-form textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.io-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.timeline-output {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.timeline-card {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.timeline-card span {
+  color: #9fb2c4;
+  font-size: 0.78rem;
+}
+
+.timeline-card p {
+  margin: 8px 0;
+}
+
+.stitch-preview {
+  display: none;
+  width: min(900px, 100%);
+  margin-top: 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: #000;
+}
+
 @keyframes auroraFloat {
   from {
     transform: translate3d(0, 0, 0) scale(1);
@@ -745,6 +800,8 @@ pre {
   }
 
   .search__form,
+  .io-grid,
+  .timeline-output,
   .assistant__actions,
   .auth__grid,
   .columns,
