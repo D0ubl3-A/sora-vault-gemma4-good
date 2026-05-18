@@ -38,6 +38,11 @@ Groq is used only as an optional voice input/transcription lane. The core intell
 Why it matters:
 Nonprofits, educators, journalists, legal aid groups, disaster response teams, and creators often have sensitive media trapped in local folders. Sora Vault gives them cloud-style search, frame understanding, and AI stitch planning without forcing them to upload the whole archive first.
 
+Prize-track fit:
+- Main Track: complete working product proof with UI, API, connector, notebook, generated MP4 playback, mastered audio replacement, public repo, and YouTube publishing.
+- Impact Track: privacy-first local media workflows for educators, journalists, nonprofits, disaster response teams, legal aid groups, and accessibility teams.
+- Special Technology Track: local Gemma/Ollama command layer, frame intelligence, audio policy/mastering, edge/cloud trust boundary, and multimodal video/audio workflow.
+
 Kaggle notebook:
 https://www.kaggle.com/code/illagency/sora-vault-gemma4-good
 
