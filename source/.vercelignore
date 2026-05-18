@@ -1,0 +1,6 @@
+data
+__pycache__
+.env
+.env.local
+connector-state.json
+*.sqlite3

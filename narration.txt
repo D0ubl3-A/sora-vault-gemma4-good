@@ -1,0 +1,11 @@
+Sora Vault Cloud is a private AI video archive for creators with large local generation folders.
+
+The key design decision is the trust boundary. The browser never crawls the user's disk. It handles account, dashboard, plans, and search. The local connector is the only component that reads approved folders, and it sends structured metadata to the cloud API.
+
+In this proof run, I create a fresh account and then run the actual connector against a local sample folder. The terminal overlay is live connector output, showing the sync while it is happening.
+
+After the connector finishes, the dashboard refreshes with the final result: one connected desktop, one approved synced root, and two indexed video clips. That proves the working loop from local folder to cloud dashboard.
+
+Gemma 4 is wired as the local provider through Ollama, using gemma4 e two b as the default model. The local path is for private and offline intent parsing, while cloud inference can still be used when low latency matters.
+
+The impact is simple: creators, educators, nonprofits, and small teams can organize sensitive local media with cloud convenience without uploading the whole archive first.

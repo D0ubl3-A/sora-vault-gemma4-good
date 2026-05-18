@@ -1,0 +1,308 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iLL Motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <div class="masthead__brand">
+          <span class="brand-mark"></span>
+          <div>
+            <p class="eyebrow">iLL Motion</p>
+            <p class="brand-note">Private AI media cloud</p>
+          </div>
+        </div>
+        <nav class="masthead__nav">
+          <a href="#how-it-works">How it works</a>
+          <a href="#migration">Import Sora</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#plans">Plans</a>
+          <a href="#auth">Start</a>
+        </nav>
+      </header>
+
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Bring any local AI video archive online</p>
+          <h1>Plug old generation folders into a searchable private library.</h1>
+          <p class="lede">
+            iLL Motion turns local video exports, remix folders, cleaned outputs, and legacy model archives
+            into a secure web dashboard. The connector reads only approved folders, syncs metadata,
+            and lets Groq help you find clips fast without exposing your whole disk to the browser.
+          </p>
+          <div class="hero__actions">
+            <a class="button-link" href="#auth">Create your library</a>
+            <a class="button-link button-link--ghost" href="#how-it-works">See the flow</a>
+          </div>
+          <div class="hero__proof">
+            <span>Local folders stay local</span>
+            <span>Metadata sync only</span>
+            <span>Groq-first search + voice</span>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="signal-stage">
+            <div class="signal-stage__glow"></div>
+            <div class="signal-stage__beam"></div>
+            <div class="signal-column signal-column--left">
+              <p class="signal-label">Local machine</p>
+              <div class="signal-node">
+                <strong>D:\AI-Archive</strong>
+                <span>legacy exports, remixes, cleaned outputs</span>
+              </div>
+              <div class="signal-node signal-node--muted">
+                <strong>Connector</strong>
+                <span>scans approved roots only</span>
+              </div>
+            </div>
+            <div class="signal-column signal-column--right">
+              <p class="signal-label">Cloud library</p>
+              <div class="signal-node">
+                <strong>Web dashboard</strong>
+                <span>accounts, plans, synced roots, device status</span>
+              </div>
+              <div class="signal-node signal-node--accent">
+                <strong>Groq assistant</strong>
+                <span>search, routing, voice transcription</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero__status">
+            <span id="session-status" class="pill">Signed out</span>
+            <span id="provider-status" class="pill pill--muted">Groq first</span>
+          </div>
+          <div class="hero__metrics" id="hero-metrics"></div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="story-strip">
+          <div>
+            <p class="eyebrow">What it actually does</p>
+            <h2>Not blind upload first. Library control first.</h2>
+          </div>
+          <p class="story-strip__copy">
+            The app does not try to mount your disk in the browser. It uses a local connector to read
+            approved folders, pushes clip metadata into the cloud API, and gives you a subscription-ready
+            search and assistant experience on top.
+          </p>
+        </section>
+
+        <section class="explain" id="how-it-works">
+          <div class="section-head">
+            <p class="eyebrow">How it works</p>
+            <h2>One account, one connector, one searchable archive.</h2>
+          </div>
+          <div class="sequence">
+            <article>
+              <span>01</span>
+              <h3>Sign in online</h3>
+              <p>Create the account that owns the library, billing, and device access.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Connect local folders</h3>
+              <p>The connector signs into that account, registers a device token, and scans only approved roots.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Search from anywhere</h3>
+              <p>Your cloud dashboard can browse, filter, and ask Groq to find clips fast without exposing raw local disk access.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="privacy" id="privacy">
+          <div class="section-head">
+            <p class="eyebrow">Trust boundary</p>
+            <h2>What syncs, what stays local.</h2>
+          </div>
+          <div class="privacy__grid">
+            <div class="privacy__list">
+              <h3>Synced to the cloud</h3>
+              <ul>
+                <li>clip titles, categories, characters, and paths</li>
+                <li>duration, size, aspect ratio, and cleaned status</li>
+                <li>devices, roots, plans, sessions, and account state</li>
+              </ul>
+            </div>
+            <div class="privacy__list">
+              <h3>Stays on the machine</h3>
+              <ul>
+                <li>the rest of the local filesystem</li>
+                <li>folders you do not explicitly approve</li>
+                <li>full video uploads unless you add that feature later</li>
+              </ul>
+            </div>
+            <div class="privacy__callout">
+              <p class="eyebrow">Why this matters</p>
+              <p>
+                This is why the product can be sold safely. The browser never gets direct folder access.
+                The connector is the filesystem boundary, and the API is the contract.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="journal" id="migration">
+          <div class="section-head">
+            <p class="eyebrow">Migration note</p>
+            <h2>How to bring old Sora exports into iLL Motion.</h2>
+          </div>
+          <div class="journal__grid">
+            <article class="journal__article">
+              <p>
+                If you already downloaded your Sora history, you do not need a special migration wizard.
+                Point the connector at those export folders and iLL Motion will index them like any other local archive.
+              </p>
+              <ol class="journal__steps">
+                <li>Keep your Sora folders where they are, such as <code>D:\SORA</code> or <code>D:\sora no watermarks</code>.</li>
+                <li>Create an account here so the connector has an owner account to attach to.</li>
+                <li>Run the connector against those folders from your machine.</li>
+                <li>Let the metadata sync, then search the archive online by prompt, category, cleaned status, or folder type.</li>
+              </ol>
+            </article>
+            <aside class="journal__aside">
+              <p class="eyebrow">What comes through</p>
+              <ul>
+                <li>titles and filenames</li>
+                <li>categories like remixes, profiles, and cleaned outputs</li>
+                <li>durations, sizes, and aspect ratios</li>
+                <li>a searchable cloud catalog built from your local export</li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section class="audience">
+          <div class="section-head">
+            <p class="eyebrow">Who it is for</p>
+            <h2>Built for people sitting on huge local generation archives.</h2>
+          </div>
+          <div class="audience__rail">
+            <div>
+              <strong>Solo creators</strong>
+              <p>Search years of clips without manually digging through folders.</p>
+            </div>
+            <div>
+              <strong>Studios</strong>
+              <p>Track machines, synced roots, and archive health across creator workstations.</p>
+            </div>
+            <div>
+              <strong>Agencies</strong>
+              <p>Turn raw output libraries into an organized catalog with plans and access control.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="auth panel panel--wide" id="auth">
+          <div class="panel__head panel__head--split">
+            <div>
+              <p class="eyebrow">Start here</p>
+              <h2>Create the account your connector will use.</h2>
+            </div>
+            <p class="meta-text">
+              Use the same account in the web app and the connector so the device, roots, and billing all land under one library.
+            </p>
+          </div>
+          <div class="auth__grid">
+            <form id="register-form" class="stack">
+              <label>Display name<input name="display_name" type="text" required></label>
+              <label>Email<input name="email" type="email" required></label>
+              <label>Password<input name="password" type="password" required></label>
+              <button type="submit">Create account</button>
+            </form>
+            <form id="login-form" class="stack">
+              <label>Email<input name="email" type="email" required></label>
+              <label>Password<input name="password" type="password" required></label>
+              <button type="submit">Sign in</button>
+            </form>
+          </div>
+          <p id="auth-message" class="meta-text">The account becomes the owner of your synced library and connected devices.</p>
+        </section>
+
+        <section class="plans panel" id="plans">
+          <div class="panel__head">
+            <p class="eyebrow">Subscription</p>
+            <h2>Pick the operating tier for your library.</h2>
+          </div>
+          <div id="plans-grid" class="plans__grid"></div>
+        </section>
+
+        <section class="dashboard panel">
+          <div class="panel__head">
+            <p class="eyebrow">Dashboard</p>
+            <h2>Track devices, synced roots, and the size of the library.</h2>
+          </div>
+          <div id="dashboard-stats" class="stats"></div>
+          <div class="columns">
+            <div>
+              <h3>Devices</h3>
+              <div id="devices-list" class="list"></div>
+            </div>
+            <div>
+              <h3>Synced roots</h3>
+              <div id="roots-list" class="list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="search panel">
+          <div class="panel__head">
+            <p class="eyebrow">Search</p>
+            <h2>Ask for clips the way you actually think about them.</h2>
+          </div>
+          <form id="search-form" class="search__form">
+            <input id="search-query" type="text" placeholder="cleaned profile clips, remix chains, no-watermark outputs..." required>
+            <select id="provider-select"></select>
+            <input id="local-model" type="text" value="gemma4:e2b" placeholder="Local model">
+            <button type="submit">Search library</button>
+          </form>
+          <div id="search-intent" class="chips"></div>
+          <div id="search-results" class="result-list"></div>
+        </section>
+
+        <section class="assistant panel">
+          <div class="panel__head">
+            <p class="eyebrow">Voice assistant</p>
+            <h2>Ask the library what is connected, searchable, or missing.</h2>
+          </div>
+          <div id="assistant-log" class="assistant-log"></div>
+          <form id="assistant-form" class="assistant__form">
+            <input id="assistant-message" type="text" placeholder="Show devices, search cleaned profile clips, how do I connect my desktop?" required>
+            <div class="assistant__actions">
+              <button type="submit">Send</button>
+              <button type="button" id="record-button">Record</button>
+              <button type="button" id="stop-button" disabled>Stop</button>
+            </div>
+          </form>
+          <p id="assistant-status" class="meta-text">Mic idle</p>
+        </section>
+
+        <section class="connector panel panel--wide">
+          <div class="panel__head">
+            <p class="eyebrow">Connector</p>
+            <h2>Run this on the machine that actually holds the archive.</h2>
+          </div>
+          <div class="connector__copy">
+            <p>
+              The local connector signs into your account, registers a device token, scans approved folders,
+              and syncs metadata to the cloud API. That is what makes online search possible without direct
+              browser access to the whole filesystem.
+            </p>
+            <pre id="connector-command"></pre>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
